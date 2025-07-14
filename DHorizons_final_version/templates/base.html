@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DHorizons{% endblock %}</title>
+    <!-- Favicon (icona nella barra del browser) -->
+    <link rel="icon" href="{{ url_for('static', filename='DHorizons_logo.png') }}" type="image/png">
+    <!-- Font e stili -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@500&display=swap" rel="stylesheet"> <!--importa due font da Google Fonts: inter e poppins-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">   <!--collegamento al file esterno CSS. Altro metodo è usare <style> all'interno dell'HTML stesso-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    {% include "navbar.html" %}   <!--la navbar è comune a tutti i file e si mette solo qui-->
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash-message">
+      {{ messages[0] }}
+    </div>
+  {% endif %}
+{% endwith %}
+
+    <main id="page-content">   <!--navbar e footer fissi, solo contenuto (CSS per animare la transizione di cambio pagina)-->
+        {% block content %}{% endblock %}   <!--percentuale e parantesi graffe = sintassi Flask; block content è dinamico in base al contenuto della pagina-->
+    </main>
+
+    {% include "footer.html" %}
+
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='readmore.js') }}"></script>
+
+
+    {% endblock %}
+</body>
+</html>

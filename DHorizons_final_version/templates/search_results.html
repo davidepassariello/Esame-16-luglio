@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Risultati per "{{ query }}"{% endblock %}
+
+{% block content %}
+    <h2 class="search-title">Risultati per "{{ query }}"</h2>
+
+    <div class="search-results-container">
+
+        <!-- POST -->
+        <div class="result-section">
+            <h3>News&nbsp;
+                <i class="fa-solid fa-newspaper fa-lg"></i>
+            </h3>
+            {% for post in post_risultati %}
+                <div class="result-card">
+                    <p><strong>{{ post.titolo }}</strong><br>{{ post.contenuto[:100] }}...</p>
+                    <a href="{{ url_for('post') }}" class="item-link">Vai alle news <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            {% else %}
+                <p class="empty-message">Nessuna notizia trovata.</p>
+            {% endfor %}
+        </div>
+
+        <!-- EVENTI -->
+        <div class="result-section">
+            <h3>Eventi&nbsp;
+            <i class="fa-solid fa-calendar-days fa-lg"></i>
+            </h3>
+            {% for evento in eventi_risultati %}
+                <div class="result-card">
+                    <p><strong>{{ evento.titolo }}</strong><br>{{ evento.contenuto[:100] }}...</p>
+                    <a href="{{ url_for('eventi') }}" class="item-link">Vai agli eventi <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            {% else %}
+                <p class="empty-message">Nessun evento trovato.</p>
+            {% endfor %}
+        </div>
+
+        <!-- LEZIONI -->
+        <div class="result-section">
+            <h3>Lezioni&nbsp;
+                <i class="fa-solid fa-chalkboard-user fa-lg"></i>
+            </h3>
+            {% for lezione in lezioni_risultati %}
+                <div class="result-card">
+                    <p><strong>{{ lezione.titolo }}</strong></p>
+                    <a href="{{ lezione.link }}" class="item-link" target="_blank">Vai alla lezione <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+            {% else %}
+                <p class="empty-message">Nessuna lezione trovata.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

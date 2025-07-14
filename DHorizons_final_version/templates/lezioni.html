@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+{% block title %}DHorizons – Lezioni{% endblock %}
+
+{% block content %}
+    <br><h1 class="lesson-title-page">Videolezioni&nbsp;
+    <i class="fa-solid fa-chalkboard-user fa-lg"></i>
+    </h1>
+{% if lezioni %}
+    <div class="lesson-grid">
+        {% for lezione in lezioni %}
+            <div class="lesson-card">
+                <h3>{{ lezione.titolo }}</h3>
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/{{ lezione.link | youtube_id }}"
+                        title="{{ lezione.titolo }}"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="empty-message">Nessuna lezione pubblicata al momento.</p>
+{% endif %}
+{% endblock %}
