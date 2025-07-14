@@ -1,0 +1,21 @@
+<div id="navbar">  <!--div divide le varie sezioni-->
+    <a href="{{ url_for('home') }}">
+        <img id="logo" src="{{ url_for('static', filename='DHorizons_logo.png') }}" alt="Logo">  <!--src = search: cerca il nome dell'immagine in static-->
+    </a>
+    
+    <ul id="navlinks">
+        <li><a href="{{ url_for('home') }}">Home</a></li>         <!--url_for è sintassi Flask-->  <!--ul = unordered list-->
+        <li><a href="{{ url_for('post') }}">News</a></li>
+        <li><a href="{{ url_for('lezioni') }}">Lezioni</a></li>
+        <li><a href="{{ url_for('eventi') }}">Eventi</a></li>                  
+    </ul>
+
+    <form id="searchbar" action="{{ url_for('search') }}" method="get">
+        <div class="search-container">
+            <input type="search" name="query" placeholder="Chi cerca...">
+            <button type="submit" class="search-button">       <!--button per rendere cliccabile l'icona della lente-->
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+            </button>
+        </div>
+    </form>
+</div>

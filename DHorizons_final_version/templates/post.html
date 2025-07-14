@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}DHorizons – News{% endblock %}
+
+{% block content %}
+<br><h1 class="post-title-page">Scopri le novità&nbsp;
+    <i class="fa-solid fa-newspaper fa-lg"></i>
+</h1>   <!--Post equivale a News nella navbar-->
+
+<div class="post-container">
+    {% if posts %}             
+        {% for post in posts %}
+            <div class="post-card">
+                {% if post.immagine %}   <!--se c'è il NOME dell'immagine allora devi richiamare anche il file (src=search nella cartella upload all'interno di static)-->
+                    <img src="{{ url_for('static', filename='uploads/' ~ post.immagine) }}" alt="immagine post"> <!--prende l'immagine-->
+                {% endif %}  
+                <div class="post-text">
+                    <h2 class="post-card-title">{{ post.titolo }}</h2>  <!--sintassi flask per titolo dinamico-->
+                    <div class="toggle-container">
+                        <p>
+                        {{ post.contenuto[:150] if post.contenuto|length > 150 else post.contenuto }}
+                        {% if post.contenuto|length > 150 %}
+                            <span class="dots">...</span>
+                            <span class="more-text" style="display: none;">{{ post.contenuto[150:] }}</span>
+                            <button class="toggle-btn">Leggi di più</button>
+                        {% endif %}
+                        </p>
+                    </div>                                       
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-message">Nessun post pubblicato al momento.</p>
+    {% endif %}     <!--anche l'end deve terminare-->
+        
+</div>
+{% endblock %}
+
+
+
+<!--tutti i div e class servono per gestire tutto con CSS e rendere più godibile il tutto in termine di stile-->

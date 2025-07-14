@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}DHorizons – Eventi{% endblock %}
+
+{% block content %}
+<br><h1 class="event-title-page">Calendario eventi&nbsp;
+    <i class="fa-solid fa-calendar-days fa-lg"></i>
+</h1>
+<div class="event-container">
+    {% if eventi %}
+        {% for evento in eventi %}
+            <div class="event-card">
+                {% if evento.immagine %}
+                <a href="{{ url_for('static', filename='uploads/' ~ evento.immagine) }}" target="_blank">   <!--rende cliccabile la locandina-->
+                    <img src="{{ url_for('static', filename='uploads/' ~ evento.immagine) }}" alt="immagine evento">
+                </a>
+                {% endif %}
+                <div class="event-text">
+                    <h2 class="event-card-title">{{ evento.titolo }}</h2>
+                    <div class="toggle-container">
+                        <p>
+                          {{ evento.contenuto[:150] if evento.contenuto|length > 150 else evento.contenuto }}
+                          {% if evento.contenuto|length > 150 %}
+                          <span class="dots">...</span>
+                          <span class="more-text" style="display: none;">{{ evento.contenuto[150:] }}</span>
+                          <button class="toggle-btn">Leggi di più</button>
+                        {% endif %}
+                      </p>
+                </div>
+                    <p class="data-evento">{{ evento.data.strftime('%d/%m/%Y') }}</p>   <!--class="data-evento">{{ evento.data }} sostituito perché HTML5 fa aaaa,mm,gg-->
+                    <!-- strf = string format time è un tipo datetime che serve per formattare la data in una stringa leggibile secondo un modello scelto -->
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-message">Nessun post pubblicato al momento.</p>
+    {% endif %}
+        
+</div>
+
+{% endblock %}

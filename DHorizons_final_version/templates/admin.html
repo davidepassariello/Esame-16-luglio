@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}DHorizons - Admin{% endblock %}
+
+{% block content %}
+<br><h1 class="admin-title">Benvenuto, Admin!
+    <i class="fa-solid fa-bug-slash fa-lg"></i>
+</h1>
+
+<!-- bottone per uscire -->
+ <div class="logout-container">
+    <form method="GET" action="{{ url_for('logout') }}">
+        <button class="logout-button" type="submit">Logout</button>
+    </form>
+</div>
+
+<!-- FORM creazione -->
+<div class="admin-wrapper">     
+
+    <!-- FORM POST -->     
+    <div class="admin-box">
+        <h2>Aggiungi Post</h2>
+        <form method="POST" action="/admin/post" enctype="multipart/form-data"> <!--method specifica il tipo di richiesta HTTP, ossia POST; action= indirizzo -->
+            <div class="form-group">
+                <label for="post-title">Titolo del Post</label>
+                <input type="text" name="titolo" id="post-title" required>  <!--required vuol dire campo obbligatorio (esce pop-up)-->
+            </div>
+
+            <div class="form-group">
+                <label for="post-content">Contenuto del post</label>
+                <textarea name="contenuto" id="post-content" required></textarea>  <!--textarea ti permette di aggiungere più testo rispetto a input-->
+            </div>
+
+            <div class="form-group">
+                <label for="post-image">Immagine (facoltativa)</label>
+                <input type="file" name="immagine" id="post-image">    <!--id e class servono sempre per definire CSS--> <!--input type="file" serve a caricare file dal proprio pc-->
+            </div>
+
+            <button class="addbutton" type="submit">Aggiungi post</button>  
+        </form>      <!--chiudi form-->
+    </div>
+
+    <!-- FORM EVENTO -->
+    <div class="admin-box">
+        <h2>Aggiungi Evento</h2>
+        <form method="POST" action="/admin/event" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="event-title">Titolo dell'evento</label>
+                <input type="text" name="titolo" id="event-title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="event-content">Contenuto dell'evento</label>
+                <textarea name="contenuto" id="event-content" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="event-date">Data dell'evento</label>
+                <input type="date" name="data" id="event-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="event-image">Immagine (facoltativa)</label>
+                <input type="file" name="immagine" id="event-image">
+            </div>
+
+            <button class="addbutton" type="submit">Aggiungi evento</button>
+        </form>
+    </div>
+
+    <!-- FORM LEZIONE -->
+    <div class="admin-box">
+        <h2>Aggiungi Lezione</h2>
+        <form method="POST" action="/admin/lesson">
+            <div class="form-group">
+                <label for="lesson-title">Titolo della lezione</label>
+                <input type="text" name="titolo" id="lesson-title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lesson-link">Link YouTube</label>
+                <input type="url" name="link" id="lesson-link" required>
+            </div>
+
+            <button class="addbutton" type="submit">Aggiungi lezione</button>
+        </form>
+    </div>
+
+</div>
+
+<!-- LISTE esistenti -->
+<div class="admin-lists">
+
+    <div class="admin-box list-only">
+        <h2>Post esistenti</h2>
+        <div class="item-list">
+            {% for post in posts %}
+                <div class="item">
+                    <p class="item-title">{{ post.titolo }}</p>
+                    <form method="POST" action="/admin/delete/post/{{ post.id }}">
+                        <button class="delete-button" type="submit">Elimina</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="admin-box list-only">
+        <h2>Eventi esistenti</h2>
+        <div class="item-list">
+            {% for evento in eventi %}
+                <div class="item">
+                    <p class="item-title">{{ evento.titolo }}</p>
+                    <form method="POST" action="/admin/delete/event/{{ evento.id }}">
+                        <button class="delete-button" type="submit">Elimina</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="admin-box list-only">
+        <h2>Lezioni esistenti</h2>
+        <div class="item-list">
+            {% for lezione in lezioni %}
+                <div class="item">
+                    <p class="item-title">{{ lezione.titolo }}</p>
+                    <form method="POST" action="/admin/delete/lesson/{{ lezione.id }}">
+                        <button class="delete-button" type="submit">Elimina</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

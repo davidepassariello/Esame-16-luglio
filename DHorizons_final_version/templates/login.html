@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<br><h1 class="admin-title">Accesso Area Riservata&nbsp;
+    <i class="fa-solid fa-lock fa-lg"></i>
+</h1>
+
+<div class="login-container">
+    <form method="POST" action="{{ url_for('login') }}" class="login-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Accedi</button>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <p class="error">{{ messages[0] }}</p>
+            {% endif %}
+        {% endwith %}
+    </form>
+</div>
+{% endblock %}
